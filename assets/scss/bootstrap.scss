@@ -1,0 +1,94 @@
+/* Bootstrap initial and overrides */
+
+// @import "~sass-rem";
+@import "bootstrap/scss/mixins/_breakpoints.scss";
+@import "_variables.scss";
+
+/**
+ String Replace
+*/
+@function str-replace($string, $search, $replace: "") {
+	$index: str-index($string, $search);
+
+	@if $index {
+		@return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+	}
+
+	@return $string;
+}
+
+/**
+ Font helper
+*/
+@mixin font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg) {
+	$src: null;
+
+	$extmods: (
+		eot: "?",
+		svg: "#" + str-replace($name, " ", "_")
+	);
+
+	$formats: (
+		otf: "opentype",
+		ttf: "truetype"
+	);
+
+	@each $ext in $exts {
+		$extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext);
+		$format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext);
+		$src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma);
+	}
+
+	@font-face {
+		font-family: quote($name);
+		font-style: $style;
+		font-weight: $weight;
+		src: $src;
+		font-display: swap;
+	}
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+    @include media-breakpoint-up($breakpoint) {
+			$infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+			@each $prop, $abbrev in (width: w, height: h) {
+				$i: 5;
+				@while $i <= 100 {
+					.#{$abbrev}#{$infix}-#{$i} { #{$prop}: #{$i}#{'%'} !important; }
+					$i: $i + 5;
+				}
+			}
+			@each $prop, $abbrev in (width: w, height: h) {
+				.#{$abbrev}#{$infix}-auto { #{$prop}: auto !important; }
+			}
+			
+			@each $prop, $abbrev in (left: l, right: r, top: t, bottom: b) {
+				.m#{$abbrev}#{$infix}-n1px { margin-#{$prop}: -1px !important; }
+			}
+    }
+}
+
+$i: 1;
+@while $i <= 48 {
+	.f-#{$i} { font-size: rem(#{$i}px) !important; }
+	$i: $i + 1;
+}
+
+$i: 1;
+@while $i <= 20 {
+	.br-#{$i} { border-radius: rem(#{$i}px) !important; }
+	$i: $i + 1;
+}
+
+$i: 1;
+@while $i <= 100 {
+	.z-index-#{$i} { z-index: #{$i} !important; }
+	.top-#{$i} { top: #{$i}px !important; }
+	$i: $i + 1;
+}
+
+@import 'bootstrap/scss/bootstrap.scss';
+@import 'bootstrap-vue/src/index.scss';
+@import "bootstrap_overrides.scss";
+@import "_plugins.scss";
+@import "_fonts.scss";

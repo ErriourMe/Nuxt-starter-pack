@@ -1,0 +1,33 @@
+/* Bootstrap' and another variables */
+
+$theme-colors: (
+  "primary": #2266d2,
+  "danger": #eb3c66,
+  "success": #26bc77
+);
+
+$body-bg: #fff;
+$body-color: #222;
+
+$tooltip-arrow-color: #080b17;
+$tooltip-bg: #080b17;
+
+// $breadcrumb-divider: quote("→");
+
+$grid-breakpoints: (
+	zs: 0,
+	xs: 1px,
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px,
+	xxl: 1700px
+);
+
+$container-max-widths: (
+	sm: 576px,
+	md: 768px,
+	lg: 992px,
+	xl: 1200px,
+	xxl: 1600px
+);
