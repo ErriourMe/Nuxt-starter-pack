@@ -1,5 +1,12 @@
 # Nuxt starter pack
 
+<p align="center">
+  <img src="https://i.stack.imgur.com/S1QYn.png" alt="Logo" />
+</p>
+<p align="center">
+    Configured Nuxt with necessary packages to quickly start a new project.
+</p>
+
 ## Build Setup
 
 ```bash
