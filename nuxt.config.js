@@ -41,7 +41,7 @@ export default {
   plugins: [
     { src: '~/plugins/localStorage', ssr: false },
     { src: '~/plugins/axios', ssr: false },
-    // { src: '~/plugins/laravelPermissions', ssr: false },
+    // { src: '~/plugins/vueGates', ssr: false },
     // { src: '~/plugins/init', ssr: false },
     { src: '~/plugins/lazySizes', ssr: true },
   ],
