@@ -1,14 +1,16 @@
 export const actions = {
-  nuxtServerInit(store, context) {
-    if (this.$cookies.get('token')) {
-      this.$axios
-        .post(`${process.env.API_DOMAIN}/${process.env.API_VERSION}/auth/me`)
-        .then((response) => {
-          store.commit('user/refreshed', { user: response.data.user })
-        })
-      // .catch((err) => {
-      //   console.log(err)
-      // })
+  async nuxtServerInit(store, context) {
+    if (context.app.$cookies.get('auth_token')) {
+      try {
+        const credintails = await this.$axios.get(
+          `${process.env.API_DOMAIN}/${process.env.API_VERSION}/auth/me`
+        )
+        store.commit('user/refreshed', { user: credintails.data.data.user })
+      } catch (err) {
+        if (err.response?.status === 401) {
+          store.dispatch('user/logout')
+        }
+      }
     }
   },
 }

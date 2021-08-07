@@ -1,5 +1,5 @@
-import en from '../lang/en.js'
-import ru from '../lang/ru.js'
+import en from '../lang/en/index.js'
+import ru from '../lang/ru/index.js'
 
 export const langConfig = {
   pluralizationRules: {
