@@ -6,9 +6,7 @@ export const state = () => ({
 export const mutations = {
   logined(state, payload) {
     state.isLoggedIn = true
-    state.currentUser = Object.assign({}, payload.user, {
-      token: payload.access_token,
-    })
+    state.currentUser = Object.assign({}, payload)
   },
   refreshed(state, payload) {
     state.currentUser = Object.assign(state.currentUser, payload)
