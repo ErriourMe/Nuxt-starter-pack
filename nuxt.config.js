@@ -2,7 +2,11 @@ import { langConfig } from './config/langConfig'
 import { bootstrapConfig } from './config/bootstrapConfig'
 import { momentConfig } from './config/momentConfig'
 import { toastConfig } from './config/toastConfig'
+import { svgSpriteConfig } from './config/svgSpriteConfig'
+// import { yandexMetrikaConfig } from './config/yandexMetrikaConfig'
 // import { PWAConfig } from './config/PWAConfig'
+
+// const env = require('dotenv').config()?.parsed
 
 export default {
   env: {
@@ -39,11 +43,15 @@ export default {
   css: ['~/assets/scss/bootstrap.scss', '~/assets/scss/global.scss'],
 
   plugins: [
+    { src: '~/plugins/headMixin', ssr: true },
     { src: '~/plugins/localStorage', ssr: false },
     { src: '~/plugins/axios', ssr: false },
     // { src: '~/plugins/vueGates', ssr: false },
     // { src: '~/plugins/init', ssr: false },
+    // { src: '~/plugins/dragScroll', ssr: false },
+    // { src: '~/plugins/laravelEcho', ssr: false },
     { src: '~/plugins/lazySizes', ssr: true },
+    { src: '~/plugins/globalComponents', ssr: true },
   ],
 
   components: false,
@@ -51,13 +59,15 @@ export default {
   buildModules: ['@nuxtjs/eslint-module'],
 
   modules: [
-    ['@nuxtjs/toast', toastConfig],
+    '@nuxtjs/dotenv',
     'cookie-universal-nuxt',
+    ['@nuxtjs/toast', toastConfig],
+    ['@nuxtjs/i18n', langConfig],
+    '@nuxtjs/axios',
     ['bootstrap-vue/nuxt', bootstrapConfig],
     ['@nuxtjs/moment', momentConfig],
-    ['nuxt-i18n', langConfig],
-    '@nuxtjs/svg-sprite',
-    '@nuxtjs/axios',
+    ['nuxt-svg-sprite-module', svgSpriteConfig],
+    // ['@nuxtjs/yandex-metrika', yandexMetrikaConfig],
     // ['@nuxtjs/pwa', PWAConfig],
   ],
 
@@ -77,8 +87,14 @@ export default {
   */
 
   build: {
-    // analyze: true,
+    analyze: false, // True to get packages diagram
     extractCSS: process.env.NODE_ENV !== 'development',
+
+    babel: {
+      plugins: [
+        ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
+      ],
+    },
 
     // Don't save cache in dev (for CloudFlare)
     devMiddleware: {

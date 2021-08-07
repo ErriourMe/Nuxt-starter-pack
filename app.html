@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html {{ HTML_ATTRS }}>
+  <head {{ HEAD_ATTRS }}>
+    {{ HEAD }}
+    <style>
+      #svg-defs {
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body {{ BODY_ATTRS }}>
+    <!-- svg-sprite -->
+    <div id='svg-defs'>
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"></svg>
+    </div>
+    <!-- endsvg-sprite -->
+    {{ APP }}
+  </body>
+</html>
