@@ -1,9 +1,9 @@
 import Vue from 'vue'
 
 export default function ({ $axios, store, app, route }) {
-  if (app.$cookies.get('auth_token')) {
+  if (app.$cookies.get('token')) {
     $axios
-      .get(`${process.env.API_DOMAIN}/${process.env.API_VERSION}/auth/me`)
+      .get(`${process.env.API_ROUTE}/${process.env.API_VERSION}/auth/me`)
       .then((res) => {
         const userData = res.data.data.credintails.user
         store.dispatch('user/refreshed', { user: userData })
@@ -29,7 +29,7 @@ export default function ({ $axios, store, app, route }) {
       .catch((err) => {
         console.log(err)
         if (err.response?.status === 401) {
-          app.$cookies.remove('auth_token')
+          app.$cookies.remove('token')
           store.dispatch('user/logout')
         }
       })

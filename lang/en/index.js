@@ -13,4 +13,8 @@ export default {
     422: 'Wrong request parameters',
     500: 'Server error',
   },
+  global: {
+    yes: 'Yes',
+    no: 'No',
+  },
 }

@@ -10,7 +10,7 @@ export default function ({ app }) {
     transports: ['websocket'],
     auth: {
       headers: {
-        Authorization: `Bearer ${app.$cookies.get('auth_token')}`,
+        Authorization: `Bearer ${app.$cookies.get('token')}`,
       },
     },
   })

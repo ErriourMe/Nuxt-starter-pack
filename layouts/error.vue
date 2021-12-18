@@ -1,14 +1,7 @@
 <template>
   <div class="container py-5">
     <div
-      class="
-        d-flex
-        flex-column
-        align-items-center
-        justify-content-center
-        h-100
-        py-5
-      "
+      class="d-flex flex-column align-items-center justify-content-center h-100 py-5"
     >
       <h1 class="text-primary">{{ error.statusCode }}</h1>
       <div class="text-primary">{{ $t(`errors.${error.statusCode}`) }}</div>

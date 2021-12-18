@@ -15,10 +15,11 @@ module.exports = {
     'plugin:nuxt/recommended',
   ],
   plugins: ['prettier'],
-  // add your custom rules here
+  // Add your custom rules here
   rules: {
     'vue/no-v-html': 'off',
     'vue/script-setup-uses-vars': 'off',
     'no-console': 'off',
+    'vue/no-v-for-template-key-on-child': 'off',
   },
 }

@@ -37,7 +37,15 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        rel: 'prefetch',
+        type: 'image/svg+xml',
+        href: '/static/sprites/main.svg',
+        as: 'image',
+      },
+    ],
   },
 
   css: ['~/assets/scss/bootstrap.scss', '~/assets/scss/global.scss'],
@@ -46,6 +54,7 @@ export default {
     { src: '~/plugins/headMixin', ssr: true },
     { src: '~/plugins/localStorage', ssr: false },
     { src: '~/plugins/axios', ssr: false },
+    { src: '~/plugins/injections', ssr: false },
     // { src: '~/plugins/vueGates', ssr: false },
     // { src: '~/plugins/init', ssr: false },
     // { src: '~/plugins/dragScroll', ssr: false },
@@ -61,15 +70,17 @@ export default {
   modules: [
     '@nuxtjs/dotenv',
     'cookie-universal-nuxt',
+    '@nuxtjs/svg-sprite',
     ['@nuxtjs/toast', toastConfig],
     ['@nuxtjs/i18n', langConfig],
     '@nuxtjs/axios',
     ['bootstrap-vue/nuxt', bootstrapConfig],
     ['@nuxtjs/moment', momentConfig],
-    ['nuxt-svg-sprite-module', svgSpriteConfig],
     // ['@nuxtjs/yandex-metrika', yandexMetrikaConfig],
     // ['@nuxtjs/pwa', PWAConfig],
   ],
+
+  svgSprite: svgSpriteConfig,
 
   loading: { color: '#a922d2', throttle: 0 },
 
@@ -90,10 +101,10 @@ export default {
     analyze: false, // True to get packages diagram
     extractCSS: process.env.NODE_ENV !== 'development',
 
-    babel: {
-      plugins: [
-        ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
-      ],
+    loaders: {
+      vue: {
+        compiler: require('vue-template-babel-compiler'),
+      },
     },
 
     // Don't save cache in dev (for CloudFlare)

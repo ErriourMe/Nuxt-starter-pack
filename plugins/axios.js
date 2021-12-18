@@ -5,8 +5,7 @@ export default function ({ $axios, store, app }) {
     (config) => {
       config.headers.common.Language = app.i18n.locale
       config.headers.common.Authorization = `Bearer ${
-        app.$cookies.get('auth_token') ||
-        store.state.user.currentUser.access_token
+        app.$cookies.get('token') || store.state.user.currentUser.access_token
       }`
       return config
     },
@@ -25,8 +24,8 @@ export default function ({ $axios, store, app }) {
     (success) => {
       const template = require('~/templates/notifications/full')
       const data = JSON.stringify(success.data).replace(
-        /{API_DOMAIN}/g,
-        process.env.API_DOMAIN
+        /{API_ROUTE}/g,
+        process.env.API_ROUTE
       )
       success.data = JSON.parse(data)
 
